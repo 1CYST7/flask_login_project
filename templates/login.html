@@ -6,5 +6,8 @@
     <input type="password" name="password" placeholder="密碼" required><br>
     <button type="submit">登入</button>
 </form>
+{% if msg %}
+    <script>alert("{{ msg }}");</script>
+{% endif %}
 <p>還沒有帳號？<a href="{{ url_for('register') }}">點我註冊</a></p>
 {% endblock %}

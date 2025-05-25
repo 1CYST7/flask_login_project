@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>我的日記</title>
+</head>
+<body>
+    <h1>我的日記</h1>
+    <a href="/write">➕ 新增日記</a> | 
+    <a href="/public_diary">查看大家的公開日記</a> |
+    <a href="/logout">登出</a>
+    <hr>
+    {% if diaries %}
+        {% for d in diaries %}
+            <div style="margin-bottom: 20px;">
+                <p>{{ d.content }}</p>
+                <small>{{ "🌍 公開" if d.is_public else "🔒 私人" }}</small>
+            </div>
+            <hr>
+            {% if d.image %}
+                <img src="{{ url_for('static', filename='uploads/' + d.image) }}" width="200"><br>
+            {% endif %}
+
+        {% endfor %}
+    {% else %}
+        <p>目前尚無日記。</p>
+    {% endif %}
+</body>
+</html>
