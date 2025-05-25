@@ -1,26 +1,35 @@
+<!-- templates/public_diary.html -->
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <title>公開日記</title>
 </head>
 <body>
-    <h1>🌍 公開日記</h1>
-    <a href="/my_diary">回到我的日記</a>
+    <h1>公開日記留言板</h1>
+    <a href="/write">回到發文</a> | <a href="/my_diary">我的日記</a> | <a href="/notifications">通知中心</a> | <a href="/logout">登出</a>
     <hr>
-    {% if diaries %}
-        {% for d in diaries %}
-            <div style="margin-bottom: 20px;">
-                <strong>{{ d.user }}</strong> 的日記：
-                <p>{{ d.content }}</p>
-                {% if d.image %}
-                    <img src="{{ url_for('static',  filename='uploads/' + d.image) }}" alt="日記圖片" style="max-width: 300px; max-height: 300px;">
-                {% endif %}
-                <hr>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>目前尚無公開日記。</p>
-    {% endif %}
+    {% for idx, diary in diaries %}
+        <div style="border: 1px solid #aaa; padding: 10px; margin-bottom: 20px">
+            <p><strong>作者：</strong>{{ diary.user }}</p>
+            <p>{{ diary.content }}</p>
+            {% if diary.image %}
+                <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" width="200">
+            {% endif %}
+
+            <h4>留言：</h4>
+            <ul>
+                {% for c in diary.comments %}
+                    <li><strong>{{ c.user }}：</strong> {{ c.text }}</li>
+                {% endfor %}
+            </ul>
+
+            <form method="post">
+                <input type="hidden" name="diary_index" value="{{ idx }}">
+                <input type="text" name="comment" placeholder="寫下你的留言">
+                <button type="submit">送出留言</button>
+            </form>
+        </div>
+    {% endfor %}
 </body>
 </html>

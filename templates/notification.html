@@ -1,0 +1,26 @@
+<!-- templates/notification.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>通知中心</title>
+</head>
+<body>
+    <h1>🔔 通知中心</h1>
+    <a href="/write">撰寫日記</a>  |
+    <a href="/my_diary">我的日記</a> |
+    <a href="/public_diary">公開留言板</a> | 
+    <a href="/logout">登出</a>
+    <hr>
+
+    {% if notifications %}
+        <ul>
+            {% for n in notifications %}
+                <li><strong>{{ n.from_user }}</strong> {{ n.message }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>目前沒有通知。</p>
+    {% endif %}
+</body>
+</html>

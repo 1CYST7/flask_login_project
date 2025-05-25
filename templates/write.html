@@ -1,25 +1,21 @@
+<!-- templates/write.html -->
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <title>撰寫日記</title>
 </head>
 <body>
-    <h1>今天發生了甚麼事情 ~</h1>
-    <form method="POST" enctype="multipart/form-data">
-        <textarea name="content" rows="5" cols="40" placeholder="寫下你的日記..." required></textarea><br>
-        <label>
-            <input type="checkbox" name="is_public">
-            這篇日記要公開
-        </label><br>
-        <label>上傳圖片：<br><br>
-            <input type="file" name="image" accept="image/*">
-        </label><br><br>
+    <h1>撰寫日記</h1>
+    <a href="/my_diary">我的日記</a> | <a href="/public_diary">公開留言板</a> | <a href="/logout">登出</a>
+    <hr>
+    <form method="post" enctype="multipart/form-data">
+        <textarea name="content" placeholder="請輸入日記內容" rows="6" cols="60"></textarea><br>
+        <label><input type="checkbox" name="is_public"> 公開這篇日記</label><br>
+        <label>上傳圖片：<input type="file" name="image"></label><br><br>
         <button type="submit">送出</button>
     </form>
-    {% if msg %}
-        <p style="color:green;">{{ msg }}</p>
-    {% endif %}
-    <a href="/my_diary">回到我的日記</a>
+    <p style="color:green;">{{ msg }}</p>
 </body>
 </html>
+
