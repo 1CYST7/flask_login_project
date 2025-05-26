@@ -123,7 +123,8 @@ def public_diary():
                 'owner': diary['user'],
                 'from_user': session['username'],
                 'message': f"在你的日記留言：{comment}",
-                'diary_index': idx
+                'diary_index': idx,
+                'forward_from': None  # 預設為 None，如果是轉發則儲存原始作者的 username
             })
 
         return redirect('/public_diary')
@@ -161,12 +162,40 @@ def view_diary(index):
                     'from_user': session['username'],
                     'message': f"在你的日記留言：{comment}",
                     'diary_index': index
+                   
                 })
 
         return redirect(url_for('view_diary', index=index))
 
     return render_template('view_diary.html', diary=diary, index=index)
+# 轉發日記
+@app.route('/forward_diary', methods=['POST'])
+def forward_diary():
+    if 'username' not in session:
+        return redirect('/login')
 
+    idx = int(request.form['diary_index'])
+    original = diaries[idx]
+
+    # 新增轉發日記
+    diaries.append({
+        'user': session['username'],
+        'content': original['content'],
+        'is_public': True,
+        'image': original['image'],
+        'comments': [],
+        'forward_from': original['user']  # 標記原作者
+    })
+
+    # 新增通知給原作者
+    if original['user'] != session['username']:
+        notifications.append({
+            'owner': original['user'],
+            'from_user': session['username'],
+            'message': f"轉發了你的日記：{original['content'][:20]}"
+        })
+
+    return redirect('/public_diary')
 
 
 

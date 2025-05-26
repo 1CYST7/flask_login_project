@@ -12,12 +12,13 @@
 
     {% if notifications %}
         {% for n in notifications %}
-            <div style="border: 1px solid gray; padding: 10px; margin-bottom: 10px">
+            <div style="border: 1px solid #aaa; margin-bottom: 10px; padding: 10px">
                 <p><strong>{{ n.from_user }}</strong>：{{ n.message }}</p>
-                {% if n.diary_index is not none %}
-                    <a href="{{ url_for('view_diary', index=n.diary_index) }}">查看原文</a>
+                {% if 'diary_index' in n %}
+                    <a href="{{ url_for('view_diary', index=n.diary_index) }}">查看原貼文</a>
                 {% endif %}
             </div>
+
 
 {% endfor %}
     {% else %}

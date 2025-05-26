@@ -12,6 +12,9 @@
     {% for idx, diary in diaries %}
         <div style="border: 1px solid #aaa; padding: 10px; margin-bottom: 20px">
             <p><strong>作者：</strong>{{ diary.user }}</p>
+            {% if diary.forward_from %}
+                <p><em>轉發自：{{ diary.forward_from }}</em></p>
+            {% endif %}
             <p>{{ diary.content }}</p>
             {% if diary.image %}
                 <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" width="200">
@@ -29,6 +32,11 @@
                 <input type="text" name="comment" placeholder="寫下你的留言">
                 <button type="submit">送出留言</button>
             </form>
+            <form method="post" action="/forward_diary">
+                <input type="hidden" name="diary_index" value="{{ idx }}">
+                <button type="submit">轉發</button>
+            </form>
+
         </div>
     {% endfor %}
 </body>
