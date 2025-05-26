@@ -1,43 +1,150 @@
-<!-- templates/public_diary.html -->
+<!--公開日記留言板-->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <title>公開日記</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .diary-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .diary-card img {
+            margin-top: 10px;
+            border-radius: 8px;
+            max-width: 100%;
+        }
+
+        .diary-card ul {
+            padding-left: 20px;
+        }
+
+        .diary-card li {
+            margin-bottom: 5px;
+        }
+
+        .diary-card form {
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: calc(100% - 100px);
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-right: 8px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .forward-form {
+            margin-top: 10px;
+        }
+
+        .comment-title {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>公開日記留言板</h1>
-    <a href="/write">回到發文</a> | <a href="/my_diary">我的日記</a> | <a href="/notifications">通知中心</a> | <a href="/logout">登出</a>
-    <hr>
-    {% for idx, diary in diaries %}
-        <div style="border: 1px solid #aaa; padding: 10px; margin-bottom: 20px">
-            <p><strong>作者：</strong>{{ diary.user }}</p>
-            {% if diary.forward_from %}
-                <p><em>轉發自：{{ diary.forward_from }}</em></p>
-            {% endif %}
-            <p>{{ diary.content }}</p>
-            {% if diary.image %}
-                <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" width="200">
-            {% endif %}
+    <header>
+        <h1>🌟 公開日記留言板</h1>
+        <nav>
+            <a href="/write">回到發文</a>
+            <a href="/my_diary">我的日記</a>
+            <a href="/notifications">通知中心</a>
+            <a href="/logout">登出</a>
+        </nav>
+    </header>
 
-            <h4>留言：</h4>
-            <ul>
-                {% for c in diary.comments %}
-                    <li><strong>{{ c.user }}：</strong> {{ c.text }}</li>
-                {% endfor %}
-            </ul>
-            
-            <form method="post">
-                <input type="hidden" name="diary_index" value="{{ idx }}">
-                <input type="text" name="comment" placeholder="寫下你的留言">
-                <button type="submit">送出留言</button>
-            </form>
-            <form method="post" action="/forward_diary">
-                <input type="hidden" name="diary_index" value="{{ idx }}">
-                <button type="submit">轉發</button>
-            </form>
+    <div class="container">
+        {% for idx, diary in diaries %}
+            <div class="diary-card">
+                <p><strong>✍️ 作者：</strong>{{ diary.user }}</p>
+                {% if diary.forward_from %}
+                    <p><em>🔁 轉發自：{{ diary.forward_from }}</em></p>
+                {% endif %}
+                <p>{{ diary.content }}</p>
+                {% if diary.image %}
+                    <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片">
+                {% endif %}
 
-        </div>
-    {% endfor %}
+                <div class="comment-title">💬 留言：</div>
+                <ul>
+                    {% for c in diary.comments %}
+                        <li><strong>{{ c.user }}：</strong>{{ c.text }}</li>
+                    {% endfor %}
+                </ul>
+                
+                <form method="post">
+                    <input type="hidden" name="diary_index" value="{{ idx }}">
+                    <input type="text" name="comment" placeholder="寫下你的留言">
+                    <button type="submit">送出留言</button>
+                </form>
+
+                <form class="forward-form" method="post" action="/forward_diary">
+                    <input type="hidden" name="diary_index" value="{{ idx }}">
+                    <button type="submit">轉發</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

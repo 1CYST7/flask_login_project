@@ -1,13 +1,86 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>登入</h2>
-<form method="POST">
-    <input type="text" name="username" placeholder="使用者名稱" required><br>
-    <input type="password" name="password" placeholder="密碼" required><br>
-    <button type="submit">登入</button>
-</form>
-{% if msg %}
-    <script>alert("{{ msg }}");</script>
-{% endif %}
-<p>還沒有帳號？<a href="{{ url_for('register') }}">點我註冊</a></p>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-container {
+        background-color: #ffffff;
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .login-container h2 {
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+    .login-container button {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .login-container button:hover {
+        background-color: #0056b3;
+    }
+
+    .login-container p {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .login-container a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .login-container a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="login-container">
+    <h2>登入</h2>
+    <form method="POST">
+        <input type="text" name="username" placeholder="使用者名稱" required><br>
+        <input type="password" name="password" placeholder="密碼" required><br>
+        <button type="submit">登入</button>
+    </form>
+
+    {% if msg %}
+        <script>alert("{{ msg }}");</script>
+    {% endif %}
+
+    <p>還沒有帳號？<a href="{{ url_for('register') }}">點我註冊</a></p>
+</div>
 {% endblock %}

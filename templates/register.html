@@ -1,13 +1,106 @@
 {% extends "base.html" %}
+
 {% block content %}
+<style>
+  /* 背景 */
+  body {
+    background: linear-gradient(135deg, #a8b8f8, #cbd3fc);
+    font-family: 'Arial Black', Arial, sans-serif;
+    color: #444;
+  }
+
+  form {
+    max-width: 420px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(100, 100, 150, 0.15);
+    transition: transform 0.3s ease;
+  }
+  form:hover {
+    transform: translateY(-3px);
+  }
+
+  h2 {
+    text-align: center;
+    color: #555;
+    font-weight: 900;
+    font-size: 2.3rem;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(180,180,200,0.3);
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 14px 18px;
+    margin: 12px 0 24px 0;
+    border: 2px solid #a3b0f9;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
+    box-shadow: inset 2px 2px 5px #dde3f7, inset -2px -2px 5px #f7faff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #9db2ff;
+    box-shadow: 0 0 8px #9db2ff66;
+    outline: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 16px 0;
+    background: linear-gradient(45deg, #a2aefc, #b9c7ff);
+    border: none;
+    border-radius: 25px;
+    color: #333;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(140, 150, 230, 0.4);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  button:hover {
+    background: linear-gradient(45deg, #b9c7ff, #a2aefc);
+    box-shadow: 0 10px 20px rgba(140, 150, 230, 0.7);
+  }
+
+  p {
+    text-align: center;
+    font-size: 15px;
+    color: #666;
+    margin-top: 30px;
+    text-shadow: 1px 1px 2px rgba(200,200,220,0.3);
+  }
+
+  p a {
+    color: #7589f1;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  p a:hover {
+    color: #9db2ff;
+    text-decoration: underline;
+  }
+</style>
+
 <h2>註冊帳號</h2>
 <form method="POST">
     <input type="text" name="username" placeholder="使用者名稱" required><br>
     <input type="password" name="password" placeholder="密碼" required><br>
     <button type="submit">註冊</button>
 </form>
+
 {% if msg %}
     <script>alert("{{ msg }}");</script>
 {% endif %}
+
 <p>已有帳號？<a href="{{ url_for('login') }}">點我登入</a></p>
 {% endblock %}
