@@ -1,3 +1,4 @@
+<!-- templates/view_diary.html -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -5,20 +6,28 @@
     <title>查看日記</title>
 </head>
 <body>
-    <h2>日記內容</h2>
-    <p><strong>作者：</strong>{{ diary.user }}</p>
-    <p>{{ diary.content }}</p>
-    {% if diary.image %}
-        <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" width="200">
-    {% endif %}
+    <h2>查看日記</h2>
+    <a href="/public_diary">回到公開日記</a> | <a href="/notifications">通知中心</a>
+    <hr>
 
-    <h4>留言：</h4>
-    <ul>
-        {% for c in diary.comments %}
-            <li><strong>{{ c.user }}：</strong> {{ c.text }}</li>
-        {% endfor %}
-    </ul>
+    <div style="border: 1px solid #aaa; padding: 10px;">
+        <p><strong>作者：</strong>{{ diary.user }}</p>
+        <p>{{ diary.content }}</p>
+        {% if diary.image %}
+            <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" width="200">
+        {% endif %}
 
-    <a href="{{ url_for('public_diary') }}">← 返回公開日記</a>
+        <h4>留言：</h4>
+        <ul>
+            {% for c in diary.comments %}
+                <li><strong>{{ c.user }}：</strong> {{ c.text }}</li>
+            {% endfor %}
+        </ul>
+
+        <form method="post">
+            <input type="text" name="comment" placeholder="寫下你的留言">
+            <button type="submit">送出留言</button>
+        </form>
+    </div>
 </body>
 </html>

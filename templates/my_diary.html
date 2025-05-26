@@ -15,7 +15,7 @@
         {% for d in diaries %}
             <div style="margin-bottom: 20px;">
                 
-                <p> <small>{{ "🌍 公開" if d.is_public else "🔒 私人" }}</small>{{ d.content }}</p>
+                <p> <small>{{ "🌍" if d.is_public else "🔒" }}</small> {{ d.content }}</p>
                 {% if d.image %}
                     <img src="{{ url_for('static', filename='uploads/' + d.image) }}" width="200"><br>
                 {% endif %}

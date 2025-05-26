@@ -132,17 +132,42 @@ def public_diary():
     return render_template('public_diary.html', diaries=public)
 
 
-# 查看日記用於通知連結
-@app.route('/view_diary/<int:index>')
+
+#查看原文時也能留言
+@app.route('/view_diary/<int:index>', methods=['GET', 'POST'])
 def view_diary(index):
     if 'username' not in session:
         return redirect('/login')
 
+    # 確認 index 是否有效
     if index < 0 or index >= len(diaries):
-        return "無效的日記編號"
+        return "找不到這篇日記", 404
 
     diary = diaries[index]
-    return render_template('view_diary.html', diary=diary)
+
+    if request.method == 'POST':
+        comment = request.form['comment'].strip()
+        if comment:
+            comment_data = {
+                'user': session['username'],
+                'text': comment
+            }
+            diary['comments'].append(comment_data)
+
+            # 新增通知
+            if diary['user'] != session['username']:
+                notifications.append({
+                    'owner': diary['user'],
+                    'from_user': session['username'],
+                    'message': f"在你的日記留言：{comment}",
+                    'diary_index': index
+                })
+
+        return redirect(url_for('view_diary', index=index))
+
+    return render_template('view_diary.html', diary=diary, index=index)
+
+
 
 
 # 通知中心
