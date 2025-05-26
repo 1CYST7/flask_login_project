@@ -6,19 +6,19 @@
     <title>通知中心</title>
 </head>
 <body>
-    <h1>🔔 通知中心</h1>
-    <a href="/write">撰寫日記</a>  |
-    <a href="/my_diary">我的日記</a> |
-    <a href="/public_diary">公開留言板</a> | 
-    <a href="/logout">登出</a>
+    <h1>通知中心</h1>
+    <a href="/write">回到發文</a> | <a href="/my_diary">我的日記</a> | <a href="/public_diary">公開日記</a> | <a href="/logout">登出</a>
     <hr>
 
     {% if notifications %}
-        <ul>
-            {% for n in notifications %}
-                <li><strong>{{ n.from_user }}</strong> {{ n.message }}</li>
-            {% endfor %}
-        </ul>
+        {% for n in notifications %}
+            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+                <p><strong>{{ n.from_user }}</strong> {{ n.message }}</p>
+                {% if n.diary_index is not none %}
+                    <a href="{{ url_for('view_diary', index=n.diary_index) }}">查看原日記</a>
+                {% endif %}
+            </div>
+        {% endfor %}
     {% else %}
         <p>目前沒有通知。</p>
     {% endif %}
