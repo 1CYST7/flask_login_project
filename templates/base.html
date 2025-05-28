@@ -3,28 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>我的日記</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
     {% block content %}{% endblock %}
-
-    <script>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-        Swal.fire({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2500,
-          icon: '{{ category }}',  // 直接用 flash 帶的類別
-          title: '{{ message }}'
-        });
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-</script>
 
 </body>
 </html>
