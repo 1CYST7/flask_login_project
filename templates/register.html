@@ -1,96 +1,95 @@
 {% extends "base.html" %}
+
 {% block content %}
 <style>
-  body {
-    background: linear-gradient(135deg, #f0f4f8, #e8f0fa);
-    font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
-    color: #2e3a59;
-    margin: 0;
-    padding: 0;
-  }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom, #eef5ff, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-  form {
-    max-width: 400px;
-    margin: 80px auto;
-    padding: 32px;
-    background: #ffffff;
-    border: 1px solid #d6e4f0;
-    border-radius: 12px;
-  }
+    .login-container {
+        background-color: #ffffff;
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
 
-  h2 {
-    text-align: center;
-    color: #3c78d8;
-    font-size: 24px;
-    margin-bottom: 24px;
-  }
+    .login-container h2 {
+        margin-bottom: 1.5rem;
+        color: #2c65d9;
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
 
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 20px;
-    border: 1px solid #bdd7ee;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: #f9fbfd;
-    transition: border-color 0.2s ease;
-  }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+        width: 100%;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border: 1px solid #bcdcff;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
 
-  input[type="text"]:focus,
-  input[type="password"]:focus {
-    border-color: #84b9f5;
-    outline: none;
-    background-color: #ffffff;
-  }
+    .login-container input:focus {
+        border-color: #6caeff;
+        outline: none;
+    }
 
-  button {
-    width: 100%;
-    padding: 14px;
-    background-color: #6baefc;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 17px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+    .login-container button {
+        margin-top: 1rem;
+        width: 100%;
+        padding: 0.75rem;
+        background-color: #6caeff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-  button:hover {
-    background-color: #589ff0;
-  }
+    .login-container button:hover {
+        background-color: #5a9ae6;
+    }
 
-  p {
-    text-align: center;
-    font-size: 14px;
-    color: #5f6c7b;
-    margin-top: 24px;
-  }
+    .login-container p {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
 
-  p a {
-    color: #5c9ff0;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
+    .login-container a {
+        color: #2c65d9;
+        text-decoration: none;
+    }
 
-  p a:hover {
-    color: #3a84e5;
-    text-decoration: underline;
-  }
+    .login-container a:hover {
+        text-decoration: underline;
+    }
 </style>
+<div class="login-container">
+    <h2>註冊帳號</h2>
+    <form method="POST">
+        <input type="text" name="username" placeholder="使用者名稱" required><br>
+        <input type="password" name="password" placeholder="密碼" required><br>
+        <button type="submit">註冊</button>
+    </form>
 
-<h2>註冊帳號</h2>
-<form method="POST">
-  <input type="text" name="username" placeholder="使用者名稱" required><br>
-  <input type="password" name="password" placeholder="密碼" required><br>
-  <button type="submit">註冊</button>
-</form>
+    {% if msg %}
+        <script>alert("{{ msg }}");</script>
+    {% endif %}
 
-{% if msg %}
-<script>alert("{{ msg }}");</script>
-{% endif %}
-
-<p>已有帳號？<a href="{{ url_for('login') }}">點我登入</a></p>
+    <p>已有帳號？<a href="{{ url_for('login') }}">點我登入</a></p>
+</div>
 {% endblock %}
