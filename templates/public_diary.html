@@ -130,7 +130,7 @@
         {% if diary.forward_from %}
           <p><em>🔁 轉發自：{{ diary.forward_from }}</em></p>
         {% endif %}
-        <p><small>🕒 發文時間：{{ diary.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+        <p><small>🕒 發文時間：{{ diary.created_at.strftime('%Y-%m-%d %H:%M') }}</small></p>
         <p>{{ diary.content }}</p>
         {% if diary.image %}
           <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" />
@@ -143,7 +143,7 @@
               <li>
                 <strong>{{ c.user }}：</strong>{{ c.text }}
                 <br />
-                <small style="color:#888;">🕒 {{ c.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                <small style="color:#888;">🕒 {{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
               </li>
             {% endfor %}
           {% else %}

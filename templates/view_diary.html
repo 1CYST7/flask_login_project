@@ -158,7 +158,7 @@
 
     <div class="diary-container">
         <p><strong>作者：</strong>{{ diary.user }}</p>
-        <p><strong>發表時間：</strong>{{ diary.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <p><strong>發表時間：</strong>{{ diary.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
         <p>{{ diary.content }}</p>
         {% if diary.image %}
             <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="日記圖片" class="diary-image">
@@ -169,7 +169,7 @@
             {% for c in diary.comments %}
                 <li>
                     <strong>{{ c.user }}：</strong> {{ c.text }}
-                    <span class="comment-time">{{ c.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                    <span class="comment-time">{{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
                 </li>
             {% else %}
                 <li>目前沒有留言。</li>
