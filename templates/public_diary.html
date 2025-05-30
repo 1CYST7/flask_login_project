@@ -1,165 +1,168 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
+<!DOCTYPE html>  
+<html lang="zh-TW"> 
 <head>
-  <meta charset="UTF-8" />
-  <title>公開日記</title>
+  <meta charset="UTF-8" /> 
+  <title>公開日記</title> 
   <style>
+    /* 以下為內嵌 CSS 樣式 */
+
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #e9fdf2, #d3f1fb);
-      margin: 0;
-      padding: 0;
-      color: #2f3e44;
+      font-family: "Segoe UI", sans-serif;  /* 字型設定 */
+      background: linear-gradient(135deg, #e9fdf2, #d3f1fb);  /* 背景漸層色 */
+      margin: 0;  /* 去除預設外邊距 */
+      padding: 0;  /* 去除預設內邊距 */
+      color: #2f3e44;  /* 文字顏色 */
     }
 
     header {
-      background-color: #ffffff;
-      padding: 16px 24px;
-      border-bottom: 1px solid #dbeaf0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      background-color: #ffffff;  /* 頁首背景白色 */
+      padding: 16px 24px;  /* 上下16px，左右24px的內邊距 */
+      border-bottom: 1px solid #dbeaf0;  /* 底部邊框 */
+      display: flex;  /* 使用彈性盒模型 */
+      align-items: center;  /* 垂直置中 */
+      justify-content: space-between;  /* 左右兩端排列 */
     }
 
     header h1 {
-      margin: 0;
-      font-size: 24px;
-      color: #348d91;
+      margin: 0;  /* 移除標題預設外邊距 */
+      font-size: 24px;  /* 字體大小 */
+      color: #348d91;  /* 標題顏色 */
     }
 
     nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #3797a4;
-      font-weight: 600;
-      transition: color 0.3s ease;
+      margin-left: 20px;  /* 每個連結左側間距 */
+      text-decoration: none;  /* 移除底線 */
+      color: #3797a4;  /* 文字顏色 */
+      font-weight: 600;  /* 字重 */
+      transition: color 0.3s ease;  /* 顏色變化過渡效果 */
     }
 
     nav a:hover {
-      color: #246f7b;
+      color: #246f7b;  /* 滑鼠懸停時的顏色 */
     }
 
     .container {
-      max-width: 760px;
-      margin: 40px auto;
-      padding: 0 20px;
+      max-width: 760px;  /* 容器最大寬度 */
+      margin: 40px auto;  /* 上下外邊距40px，左右置中 */
+      padding: 0 20px;  /* 左右內邊距20px */
     }
 
     .diary-card {
-      background-color: #ffffff;
-      border: 1px solid #d4ecf2;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 24px;
+      background-color: #ffffff;  /* 留言卡片背景白色 */
+      border: 1px solid #d4ecf2;  /* 邊框顏色 */
+      border-radius: 10px;  /* 圓角 */
+      padding: 20px;  /* 內邊距 */
+      margin-bottom: 24px;  /* 卡片底部外邊距 */
     }
 
     .diary-card img {
-      margin-top: 10px;
-      border-radius: 6px;
-      max-width: 100%;
+      margin-top: 10px;  /* 圖片上方間距 */
+      border-radius: 6px;  /* 圖片圓角 */
+      max-width: 100%;  /* 圖片最大寬度不超出容器 */
     }
 
     .diary-card ul {
-      padding-left: 20px;
-      margin: 10px 0;
+      padding-left: 20px;  /* 留言列表左側內邊距 */
+      margin: 10px 0;  /* 上下外邊距 */
     }
 
     .diary-card li {
-      margin-bottom: 6px;
+      margin-bottom: 6px;  /* 每則留言底部外邊距 */
     }
 
     .diary-card form {
-      margin-top: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;  /* 表單內元件之間的距離 */
+      margin-top: 12px;  /* 表單上方間距 */
+      display: flex;  /* 內部元素橫向排列 */
+      flex-direction: column;  /* 改為垂直排列 */
+      gap: 10px;  /* 表單元件間距 */
     }
 
     input[type="text"] {
-      padding: 10px;
-      width: calc(100% - 110px);
-      border: 1px solid #b2dde9;
-      border-radius: 6px;
-      background-color: #f7fcfd;
-      font-size: 15px;
+      padding: 10px;  /* 文字框內邊距 */
+      width: calc(100% - 110px);  /* 計算寬度，預留按鈕寬度 */
+      border: 1px solid #b2dde9;  /* 邊框顏色 */
+      border-radius: 6px;  /* 圓角 */
+      background-color: #f7fcfd;  /* 背景色 */
+      font-size: 15px;  /* 字體大小 */
     }
 
     button {
-      padding: 10px 16px;
-      background-color: #68c3c0;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
+      padding: 10px 16px;  /* 按鈕內邊距 */
+      background-color: #68c3c0;  /* 按鈕背景色 */
+      color: white;  /* 文字顏色 */
+      border: none;  /* 無邊框 */
+      border-radius: 6px;  /* 圓角 */
+      cursor: pointer;  /* 滑鼠變手指 */
+      font-weight: 600;  /* 字重 */
+      font-size: 14px;  /* 字體大小 */
+      transition: background-color 0.3s ease;  /* 背景色過渡 */
     }
 
     button:hover {
-      background-color: #4fb1ae;
+      background-color: #4fb1ae;  /* 滑鼠懸停時顏色 */
     }
 
     .forward-form {
-      margin-top: 12px;
+      margin-top: 12px;  /* 轉發按鈕表單上方間距 */
     }
 
     .comment-title {
-      margin-top: 18px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #3c7b84;
+      margin-top: 18px;  /* 留言標題上方間距 */
+      font-size: 15px;  /* 字體大小 */
+      font-weight: 600;  /* 字重 */
+      color: #3c7b84;  /* 文字顏色 */
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>🌿 公開日記留言板</h1>
-    <nav>
-      <a href="/write">回到發文</a>
-      <a href="/my_diary">我的日記</a>
-      <a href="/notifications">通知中心</a>
-      <a href="/logout">登出</a>
+    <h1>🌿 公開日記留言板</h1> 
+    <nav><!-- 導覽列 -->
+      <a href="/write">回到發文</a>  
+      <a href="/my_diary">我的日記</a>  
+      <a href="/notifications">通知中心</a> 
+      <a href="/logout">登出</a> 
     </nav>
   </header>
 
   <div class="container">
-    {% for idx, diary in diaries %}
+    {% for idx, diary in diaries %}  <!-- Jinja2 模板語法：diaries 列表，idx 是索引，diary 是日記物件 -->
       <div class="diary-card">
-        <p><strong>✍️ 作者：</strong>{{ diary.user }}</p>
-        {% if diary.forward_from %}
-          <p><em>🔁 轉發自：{{ diary.forward_from }}</em></p>
+        <p><strong>✍️ 作者：</strong>{{ diary.user }}</p>  <!-- 顯示作者名稱 -->
+        {% if diary.forward_from %}  <!-- 如果有轉發來源 -->
+          <p><em>🔁 轉發自：{{ diary.forward_from }}</em></p>  <!-- 顯示轉發來源 -->
         {% endif %}
-        <p><small>🕒 發文時間：{{ diary.created_at.strftime('%Y-%m-%d %H:%M') }}</small></p>
-        <p>{{ diary.content }}</p>
-        {% if diary.image %}
-          <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" />
+        <p><small>🕒 發文時間：{{ diary.created_at.strftime('%Y-%m-%d %H:%M') }}</small></p>  <!-- 發文時間格式化顯示 -->
+        <p>{{ diary.content }}</p>  <!-- 顯示日記內容 -->
+        {% if diary.image %}  <!-- 如果有附加圖片 -->
+          <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" />  <!-- 顯示圖片 -->
         {% endif %}
 
-        <div class="comment-title">💬 留言：</div>
+        <div class="comment-title">💬 留言：</div>  <!-- 留言標題 -->
         <ul>
-          {% if diary.comments %}
-            {% for c in diary.comments %}
+          {% if diary.comments %}  <!-- 如果該日記有留言 -->
+            {% for c in diary.comments %}  <!-- 留言 -->
               <li>
-                <strong>{{ c.user }}：</strong>{{ c.text }}
+                <strong>{{ c.user }}：</strong>{{ c.text }}  <!-- 顯示留言者和留言內容 -->
                 <br />
-                <small style="color:#888;">🕒 {{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                <!-- created_at是一個 datetime.datetime的物件表示某個時間， .strftime() 可以把 datetime 物件格式化成指定格式的字串-->
+                <small style="color:#888;">🕒 {{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</small>  <!-- 留言時間 -->
               </li>
             {% endfor %}
-          {% else %}
-            <li><em>目前尚無留言</em></li>
+          {% else %}  <!-- 若無留言 -->
+            <li><em>目前尚無留言</em></li>  <!-- 顯示提示文字 -->
           {% endif %}
         </ul>
-
-        <form method="post" onsubmit="return this.comment.value.trim() !== '';">
-          <input type="hidden" name="diary_index" value="{{ idx }}" />
-          <input type="text" name="comment" placeholder="寫下你的留言" required />
-          <button type="submit">送出留言</button>
+        <!-- 輸入欄位是否不為空白字串。 -->
+        <form method="post" onsubmit="return this.comment.value.trim() !== '';">  <!-- 留言表單，提交前檢查留言不為空 -->
+          <input type="hidden" name="diary_index" value="{{ idx }}" />  <!-- 傳送該日記的索引，讓後端知道留言目標 -->
+          <input type="text" name="comment" placeholder="寫下你的留言" required />  <!-- 留言輸入框 -->
+          <button type="submit">送出留言</button>  <!-- 送出按鈕 -->
         </form>
 
-        <form class="forward-form" method="post" action="/forward_diary">
-          <input type="hidden" name="diary_index" value="{{ idx }}" />
-          <button type="submit">轉發</button>
+        <form class="forward-form" method="post" action="/forward_diary">  <!-- 轉發表單 -->
+          <input type="hidden" name="diary_index" value="{{ idx }}" />  <!-- 傳送轉發目標的日記索引 -->
+          <button type="submit">轉發</button>  <!-- 轉發按鈕 -->
         </form>
       </div>
     {% endfor %}

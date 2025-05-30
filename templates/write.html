@@ -4,131 +4,157 @@
     <meta charset="UTF-8">
     <title>撰寫日記</title>
     <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f9fc;
-    color: #333;
-    margin: 40px;
-  }
+      /* 整體網頁字體、背景及顏色 */
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f7f9fc;
+        color: #333;
+        margin: 40px;
+      }
 
-  h1 {
-    text-align: center;
-    color: #34495e;
-    margin-bottom: 25px;
-    letter-spacing: 1.2px;
-  }
+      /* 頁面主標題 */
+      h1 {
+        text-align: center;
+        color: #34495e;
+        margin-bottom: 25px;
+        letter-spacing: 1.2px;
+      }
 
-  a {
-    color: #2980b9;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-  a:hover {
-    color: #1c5980;
-    text-decoration: underline;
-  }
+      /* 頁面上方導覽連結 */
+      a {
+        color: #2980b9;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: #1c5980;
+        text-decoration: underline;
+      }
 
-  hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 20px 0 35px 0;
-  }
+      /* 分隔線 */
+      hr {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 20px 0 35px 0;
+      }
 
-  form {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 30px 35px;
-    border-radius: 14px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.1);
-    box-sizing: border-box;
-  }
+      /* 表單區塊置中並有陰影與圓角 */
+      form {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px 35px;
+        border-radius: 14px;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        box-sizing: border-box;
+      }
 
-  textarea {
-  width: 100%;
-  max-width: 100%;
-  min-height: 120px;
-  resize: vertical;
-  padding: 15px 18px;
-  font-size: 16px;
-  border: 2px solid #b0c4de;
-  border-radius: 12px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  box-shadow: inset 2px 2px 6px #e6ecf7, inset -2px -2px 6px #ffffff;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-sizing: border-box;
-}
+      /* 多行文字輸入框 */
+      textarea {
+        width: 100%;
+        max-width: 100%;
+        min-height: 120px;
+        resize: vertical; /* 只允許垂直縮放 */
+        padding: 15px 18px;
+        font-size: 16px;
+        border: 2px solid #b0c4de;
+        border-radius: 12px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-shadow: inset 2px 2px 6px #e6ecf7, inset -2px -2px 6px #ffffff;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        box-sizing: border-box;
+      }
 
-  textarea:focus {
-    border-color: #5dade2;
-    box-shadow: 0 0 10px #5dade266;
-    outline: none;
-  }
+      /* 輸入框獲得焦點時變化 */
+      textarea:focus {
+        border-color: #5dade2;
+        box-shadow: 0 0 10px #5dade266;
+        outline: none;
+      }
 
-  label {
-    display: block;
-    margin-top: 20px;
-    font-weight: 600;
-    color: #34495e;
-  }
+      /* 表單標籤 */
+      label {
+        display: block;
+        margin-top: 20px;
+        font-weight: 600;
+        color: #34495e;
+      }
 
-  input[type="checkbox"] {
-    transform: scale(1.2);
-    margin-right: 8px;
-    cursor: pointer;
-  }
+      /* Checkbox 放大並增加間距 */
+      input[type="checkbox"] {
+        transform: scale(1.2);
+        margin-right: 8px;
+        cursor: pointer;
+      }
 
-  input[type="file"] {
-    margin-top: 8px;
-    font-size: 14px;
-    cursor: pointer;
-  }
+      /* 檔案上傳框樣式 */
+      input[type="file"] {
+        margin-top: 8px;
+        font-size: 14px;
+        cursor: pointer;
+      }
 
-  button {
-    margin-top: 30px;
-    width: 100%;
-    padding: 14px 0;
-    background: linear-gradient(45deg, #5dade2, #85c1e9);
-    border: none;
-    border-radius: 25px;
-    color: white;
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgba(93, 173, 226, 0.6);
-    transition: background 0.4s ease, box-shadow 0.4s ease;
-  }
-  button:hover {
-    background: linear-gradient(45deg, #85c1e9, #5dade2);
-    box-shadow: 0 10px 25px rgba(93, 173, 226, 0.9);
-  }
+      /* 送出按鈕樣式 */
+      button {
+        margin-top: 30px;
+        width: 100%;
+        padding: 14px 0;
+        background: linear-gradient(45deg, #5dade2, #85c1e9);
+        border: none;
+        border-radius: 25px;
+        color: white;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(93, 173, 226, 0.6);
+        transition: background 0.4s ease, box-shadow 0.4s ease;
+      }
+      button:hover {
+        background: linear-gradient(45deg, #85c1e9, #5dade2);
+        box-shadow: 0 10px 25px rgba(93, 173, 226, 0.9);
+      }
 
-  p {
-    max-width: 600px;
-    margin: 25px auto 0 auto;
-    font-size: 16px;
-    font-weight: 600;
-    color: #27ae60;
-    text-align: center;
-  }
-</style>
+      /* 顯示訊息文字 */
+      p {
+        max-width: 600px;
+        margin: 25px auto 0 auto;
+        font-size: 16px;
+        font-weight: 600;
+        color: #27ae60;
+        text-align: center;
+      }
+    </style>
 
 </head>
 <body>
+    <!-- 頁面標題 -->
     <h1>撰寫日記</h1>
+
+    <!-- 導覽連結 -->
     <div style="text-align:center; margin-bottom: 20px;">
       <a href="/my_diary">我的日記</a> | <a href="/public_diary">公開留言板</a> | <a href="/logout">登出</a>
     </div>
     <hr>
+
+    <!-- 表單設定，multipart/form-data 為了能上傳檔案 -->
     <form method="post" enctype="multipart/form-data">
+        <!-- 日記內容輸入 -->
         <textarea name="content" placeholder="請輸入日記內容" rows="6" cols="60"></textarea>
+
+        <!-- 是否公開勾選框 -->
         <label><input type="checkbox" name="is_public"> 公開這篇日記</label>
+
+        <!-- 上傳圖片欄位 -->
         <label>上傳圖片：<br><input type="file" name="image"></label>
+
+        <!-- 送出按鈕 -->
         <button type="submit">送出</button>
     </form>
+
+    <!-- 從後端傳來的訊息 -->
     <p>{{ msg }}</p>
 </body>
 </html>

@@ -1,13 +1,15 @@
-<!--通知中心-->
+<!-- 通知中心主頁 -->
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW"> 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <title>通知中心</title>
+
+    <!-- CSS 樣式設定 -->
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
-            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* 背景漸層 */
             margin: 0;
             padding: 0;
             color: #333;
@@ -54,7 +56,7 @@
         }
 
         .notification:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px); /* 滑鼠移上時浮起來的動畫 */
         }
 
         .notification p {
@@ -78,10 +80,13 @@
         }
     </style>
 </head>
+
 <body>
+    <!-- 頁面標頭 -->
     <header>
-        <h1>🔔 通知中心</h1>
+        <h1>🔔 通知中心</h1> <!-- 標題文字 -->
         <nav>
+            <!-- 導覽列按鈕 -->
             <a href="/write">回到發文</a>
             <a href="/my_diary">我的日記</a>
             <a href="/public_diary">公開日記</a>
@@ -89,17 +94,19 @@
         </nav>
     </header>
 
+    <!-- 通知內容區塊 -->
     <div class="container">
-        {% if notifications %}
-            {% for n in notifications %}
+        {% if notifications %} <!-- 如果有通知資料 -->
+            {% for n in notifications %} <!-- 對每筆通知迴圈 -->
                 <div class="notification">
-                    <p><strong>{{ n.from_user }}</strong>：{{ n.message }}</p>
-                    {% if 'diary_index' in n %}
+                    <p><strong>{{ n.from_user }}</strong>：{{ n.message }}</p> <!-- 顯示誰發通知 & 內容 -->
+                    
+                    {% if 'diary_index' in n %} <!-- 如果通知有提供貼文索引 -->
                         <a href="{{ url_for('view_diary', index=n.diary_index) }}">👉 查看原貼文</a>
                     {% endif %}
                 </div>
             {% endfor %}
-        {% else %}
+        {% else %} <!-- 沒有通知時顯示 -->
             <div class="no-notify">
                 目前沒有通知。
             </div>

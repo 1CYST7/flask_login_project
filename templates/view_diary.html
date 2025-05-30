@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>查看日記</title>
     <style>
+      /* 網頁整體字體與背景色 */
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: #f2f6fc;
@@ -11,6 +12,7 @@
         margin: 30px;
       }
 
+      /* 標題置中且配色 */
       h2 {
         text-align: center;
         color: #2c3e50;
@@ -18,6 +20,7 @@
         letter-spacing: 1.1px;
       }
 
+      /* 連結樣式 */
       a {
         color: #3498db;
         text-decoration: none;
@@ -30,30 +33,35 @@
         text-decoration: underline;
       }
 
+      /* 分隔線樣式 */
       hr {
         border: none;
         border-top: 1px solid #ccc;
         margin: 20px 0;
       }
 
+      /* 日記內容容器 */
       .diary-container {
         background: white;
         max-width: 700px;
-        margin: 0 auto;
+        margin: 0 auto; /* 水平置中 */
         padding: 25px 30px;
         border-radius: 12px;
         box-shadow: 0 6px 15px rgba(0,0,0,0.1);
       }
 
+      /* 容器內段落文字 */
       .diary-container p {
         line-height: 1.6;
         font-size: 1.1rem;
       }
 
+      /* 加粗文字的顏色 */
       .diary-container strong {
         color: #34495e;
       }
 
+      /* 日記圖片樣式，置中、最大寬度、圓角及陰影 */
       .diary-image {
         display: block;
         margin: 20px auto;
@@ -62,6 +70,7 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.12);
       }
 
+      /* 留言區標題 */
       h4 {
         margin-top: 30px;
         color: #2c3e50;
@@ -69,6 +78,7 @@
         padding-bottom: 6px;
       }
 
+      /* 留言清單樣式：無點列表、滾動、框線、圓角、背景色 */
       ul {
         list-style-type: none;
         padding-left: 0;
@@ -80,34 +90,40 @@
         background: #fafafa;
       }
 
+      /* 留言項目樣式，分隔線及字體大小 */
       ul li {
         padding: 10px 15px;
         border-bottom: 1px solid #e1e8f0;
         font-size: 1rem;
       }
 
+      /* 最後一個留言項目無分隔線 */
       ul li:last-child {
         border-bottom: none;
       }
 
+      /* 留言中使用者名稱加粗且顏色不同 */
       ul li strong {
         color: #2980b9;
       }
 
+      /* 留言時間字體及顏色 */
       .comment-time {
         font-size: 0.85rem;
         color: #999;
         margin-left: 10px;
       }
 
+      /* 留言表單的間距與排版 */
       form {
         margin-top: 25px;
         display: flex;
         gap: 10px;
       }
 
+      /* 留言輸入框樣式 */
       form input[type="text"] {
-        flex: 1;
+        flex: 1; /* 自動填滿剩餘空間 */
         padding: 12px 15px;
         font-size: 1rem;
         border: 1.5px solid #ccc;
@@ -115,11 +131,13 @@
         transition: border-color 0.3s ease;
       }
 
+      /* 輸入框獲得焦點時變色 */
       form input[type="text"]:focus {
         border-color: #3498db;
         outline: none;
       }
 
+      /* 送出留言按鈕樣式 */
       form button {
         padding: 12px 25px;
         background: #3498db;
@@ -132,11 +150,12 @@
         transition: background 0.3s ease;
       }
 
+      /* 按鈕懸停時變色 */
       form button:hover {
         background: #2c80d3;
       }
 
-      /* 滾動條美化 */
+      /* 自訂滾動條樣式 */
       ul::-webkit-scrollbar {
         width: 8px;
       }
@@ -150,32 +169,53 @@
     </style>
 </head>
 <body>
+    <!-- 頁面主標題 -->
     <h2>查看日記</h2>
+
+    <!-- 頁面上方連結導覽，置中排列 -->
     <div style="text-align:center; margin-bottom: 15px;">
       <a href="/public_diary">回到公開日記</a> | <a href="/notifications">通知中心</a>
     </div>
+
     <hr>
 
+    <!-- 日記內容區塊 -->
     <div class="diary-container">
+        <!-- 顯示作者名稱 -->
         <p><strong>作者：</strong>{{ diary.user }}</p>
+
+        <!-- 顯示發表時間，格式為 YYYY-MM-DD HH:mm -->
         <p><strong>發表時間：</strong>{{ diary.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+
+        <!-- 顯示日記文字內容 -->
         <p>{{ diary.content }}</p>
+
+        <!-- 如果有圖片，顯示圖片 -->
         {% if diary.image %}
             <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="日記圖片" class="diary-image">
         {% endif %}
 
+        <!-- 留言區標題 -->
         <h4>留言：</h4>
+
+        <!-- 留言列表 -->
         <ul>
+            <!-- 迴圈顯示所有留言 -->
             {% for c in diary.comments %}
                 <li>
+                    <!-- 顯示留言者名稱與留言文字 -->
                     <strong>{{ c.user }}：</strong> {{ c.text }}
+
+                    <!-- 顯示留言時間 -->
                     <span class="comment-time">{{ c.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
                 </li>
             {% else %}
+                <!-- 如果沒有留言，顯示提示文字 -->
                 <li>目前沒有留言。</li>
             {% endfor %}
         </ul>
 
+        <!-- 留言輸入表單，送出會以 POST 方式送出資料 -->
         <form method="post">
             <input type="text" name="comment" placeholder="寫下你的留言" required>
             <button type="submit">送出留言</button>

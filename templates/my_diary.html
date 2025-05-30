@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
+<!DOCTYPE html> 
+<html lang="zh-Hant"> 
 <head>
-    <meta charset="UTF-8">
-    <title>我的日記</title>
+    <meta charset="UTF-8"> 
+    <title>我的日記</title> 
     <style>
+        /* 以下是整體的 CSS 樣式，設定頁面外觀 */
+
         body {
             margin: 0;
             padding: 0;
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #c2e9fb, #a1c4fd);
+            background: linear-gradient(to right, #c2e9fb, #a1c4fd); /* 漸層背景 */
             color: #333;
         }
 
@@ -16,7 +18,7 @@
             background-color: rgba(255, 255, 255, 0.85);
             padding: 1.5rem;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 陰影效果 */
         }
 
         header h1 {
@@ -76,11 +78,13 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <h1>📔 我的日記</h1>
         <nav>
+            <!-- 功能列超連結 -->
             <a href="/write">➕ 新增日記</a> 
             <a href="/public_diary">查看大家的公開日記</a> 
             <a href="/notifications">通知中心</a> 
@@ -89,16 +93,19 @@
     </header>
 
     <main>
-        {% if diaries %}
-            {% for d in diaries %}
+        {% if diaries %} <!-- 如果有日記資料 -->
+            {% for d in diaries %} <!-- 逐筆顯示每一篇日記 -->
                 <div class="diary-card">
+                    <!-- 顯示日記內容，前面顯示 🌍 (公開) 或 🔒 (私人) -->
                     <p><small>{{ "🌍" if d.is_public else "🔒" }}</small> {{ d.content }}</p>
-                    {% if d.image %}
+                    
+                    {% if d.image %} <!-- 如果有上傳圖片則顯示 -->
                         <img src="{{ url_for('static', filename='uploads/' + d.image) }}">
                     {% endif %}
                 </div>
             {% endfor %}
         {% else %}
+            <!-- 沒有日記時顯示的文字 -->
             <div class="no-diary">目前尚無日記。</div>
         {% endif %}
     </main>
