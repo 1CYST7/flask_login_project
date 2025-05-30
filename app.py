@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -83,7 +84,9 @@ def write():
             'content': content,
             'is_public': is_public,
             'image': image_filename,
-            'comments': []
+            'comments': [],
+            'created_at': datetime.now(),  # 新增日記建立時間
+            'forward_from': None  # 預設 None，方便識別是否轉發
         })
         msg = "發表成功"
 
@@ -113,7 +116,8 @@ def public_diary():
         diary = diaries[idx]
         comment_data = {
             'user': session['username'],
-            'text': comment
+            'text': comment,
+            'created_at': datetime.now()  # 新增留言時間
         }
         diary['comments'].append(comment_data)
 
@@ -124,12 +128,16 @@ def public_diary():
                 'from_user': session['username'],
                 'message': f"在你的日記留言：{comment}",
                 'diary_index': idx,
+                'created_at': datetime.now(),  # 新增日記建立時間
                 'forward_from': None  # 預設為 None，如果是轉發則儲存原始作者的 username
             })
 
         return redirect('/public_diary')
 
     public = [(i, d) for i, d in enumerate(diaries) if d['is_public']]
+    # 根據 created_at 排序，最新的在最前面
+    public.sort(key=lambda x: x[1]['created_at'], reverse=True)
+    
     return render_template('public_diary.html', diaries=public)
 
 
@@ -151,7 +159,8 @@ def view_diary(index):
         if comment:
             comment_data = {
                 'user': session['username'],
-                'text': comment
+                'text': comment,
+                'created_at': datetime.now()  # 新增留言時間
             }
             diary['comments'].append(comment_data)
 
@@ -184,6 +193,7 @@ def forward_diary():
         'is_public': True,
         'image': original['image'],
         'comments': [],
+        'created_at': datetime.now(),
         'forward_from': original['user']  # 標記原作者
     })
 

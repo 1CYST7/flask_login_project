@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>公開日記</title>
   <style>
     body {
@@ -130,26 +130,35 @@
         {% if diary.forward_from %}
           <p><em>🔁 轉發自：{{ diary.forward_from }}</em></p>
         {% endif %}
+        <p><small>🕒 發文時間：{{ diary.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
         <p>{{ diary.content }}</p>
         {% if diary.image %}
-          <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片">
+          <img src="{{ url_for('static', filename='uploads/' + diary.image) }}" alt="圖片" />
         {% endif %}
 
         <div class="comment-title">💬 留言：</div>
         <ul>
-          {% for c in diary.comments %}
-            <li><strong>{{ c.user }}：</strong>{{ c.text }}</li>
-          {% endfor %}
+          {% if diary.comments %}
+            {% for c in diary.comments %}
+              <li>
+                <strong>{{ c.user }}：</strong>{{ c.text }}
+                <br />
+                <small style="color:#888;">🕒 {{ c.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+              </li>
+            {% endfor %}
+          {% else %}
+            <li><em>目前尚無留言</em></li>
+          {% endif %}
         </ul>
 
-        <form method="post">
-          <input type="hidden" name="diary_index" value="{{ idx }}">
-          <input type="text" name="comment" placeholder="寫下你的留言">
+        <form method="post" onsubmit="return this.comment.value.trim() !== '';">
+          <input type="hidden" name="diary_index" value="{{ idx }}" />
+          <input type="text" name="comment" placeholder="寫下你的留言" required />
           <button type="submit">送出留言</button>
         </form>
 
         <form class="forward-form" method="post" action="/forward_diary">
-          <input type="hidden" name="diary_index" value="{{ idx }}">
+          <input type="hidden" name="diary_index" value="{{ idx }}" />
           <button type="submit">轉發</button>
         </form>
       </div>
