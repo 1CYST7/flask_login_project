@@ -72,15 +72,17 @@
 <div class="login-container">
     <h2>登入</h2>
     <form method="POST">
+        <!--placeholder=空格內填的文字 required=必填  -->
         <input type="text" name="username" placeholder="使用者名稱" required><br>
         <input type="password" name="password" placeholder="密碼" required><br>
         <button type="submit">登入</button>
     </form>
-
+    <!--如果帳號密碼錯誤(後端app.py偵測)則會在app.py傳msg(帳號密碼有誤)回來-->
+    <!--alert是彈跳式視窗-->
     {% if msg %}
         <script>alert("{{ msg }}");</script>
     {% endif %}
-
+    <!--切去註冊頁面-->
     <p>還沒有帳號？<a href="{{ url_for('register') }}">點我註冊</a></p>
 </div>
 {% endblock %}
